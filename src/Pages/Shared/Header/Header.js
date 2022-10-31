@@ -7,7 +7,7 @@ const Header = () => {
         <li><Link to='/'>Home</Link></li>
     </>
     return (
-        <div className="navbar bg-base-100 h-24">
+        <div className="navbar bg-base-100 h-24 mt-4 mb-5">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost md:hidden">
