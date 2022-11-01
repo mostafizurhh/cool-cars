@@ -14,9 +14,10 @@ const Services = () => {
     return (
         <div>
             <div className='text-center mb-5'>
-                <h5 className='text-orange-700 text text-2xl font-semibold mt-20'>Service</h5>
+                <h5 className='text-orange-700 text text-2xl font-semibold mt-5 lg:mt-20'>Service</h5>
                 <p className='text-3xl font-bold mb-2'>Our Service Areas</p>
-                <p className='capitalize lg:w-1/2'>the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. </p>
+                <p className='capitalize'>the majority have suffered alteration in some form, by injected humour, or</p>
+                <p className='capitalize'>randomised words which don't look even slightly believable. </p>
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {
