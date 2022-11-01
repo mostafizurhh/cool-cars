@@ -8,15 +8,13 @@ const BannerItem = ({ slide }) => {
             <div className='gradient'>
                 <img src={image} alt='' className="w-full rounded-lg" />
             </div>
-            <div className="absolute flex justify-start transform -translate-y-1/2 left-24 top-1/4">
-                <h5 className='text-6xl text-white font-bold'>Affordable <br />
-                    Price For Car <br />
-                    Servicing</h5>
+            <div className="absolute flex justify-start transform -translate-y-1/2 top-5 left-5 md:left-8 md:top-1/4 lg:left-24 lg:top-1/4 ">
+                <h5 className='text-xl md:text-5xl lg:text-6xl text-white font-bold md:w-1/2 '>Affordable Price For Car Servicing</h5>
             </div>
-            <div className="absolute flex justify-start transform -translate-y-1/2 left-24 top-1/2">
-                <p className='text-white text-xl w-2/3'>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
+            <div className="absolute flex justify-start transform -translate-y-1/2 top-20 left-5 md:left-8 md:top-1/2 lg:left-24 ">
+                <p className='text-white text-xl md:w-2/3'>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
             </div>
-            <div className="absolute flex justify-start transform -translate-y-1/2 left-24 bottom-1/3">
+            <div className="absolute flex justify-start transform -translate-y-1/2 left-5 bottom-1/4 md:left-8 md:bottom-1/3 lg:left-24 ">
                 <button className="btn btn-sm bg-orange-700 mr-5 text-whiter">Discover More</button>
                 <button className="btn btn-sm btn-outline btn-secondary">Latest Project</button>
             </div>
