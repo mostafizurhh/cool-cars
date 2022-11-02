@@ -26,6 +26,9 @@ const Services = () => {
                         service={service}></ServiceCard>)
                 }
             </div>
+            <div className='text-center mb-20'>
+                <button className="btn btn-outline btn-error">More Services</button>
+            </div>
         </div>
     );
 };
