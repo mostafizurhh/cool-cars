@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import logo from '../../assets/images/login/login.svg'
 import icon1 from '../../assets/social-icons/Facebook.png'
 import icon2 from '../../assets/social-icons/Google.png'
@@ -9,9 +9,21 @@ import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider } from 'fi
 
 const Login = () => {
     const [error, setError] = useState('')
+    const [userEmail, setUserEmail] = useState('')/* forget password */
+
+    /*--------------
+     navigate user 
+     ---------------*/
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/'
+    /*-------------------------------------------------*/
 
     const { setLoading, providerLogin, loginWithEmail, passwordReset } = useContext(AuthContext);
 
+    /*---------------------
+     social media login 
+     ----------------------*/
     const facebookProvider = new FacebookAuthProvider();
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
@@ -40,6 +52,7 @@ const Login = () => {
             })
             .catch(error => console.error(error))
     }
+    /*------------------------------------------------------*/
 
     const handleFormSubmit = (event) => {
         event.preventDefault()
@@ -54,6 +67,7 @@ const Login = () => {
                 console.log(user)
                 setError('')
                 form.reset()
+                navigate(from, { replace: true })/* navigate user */
             })
             .catch(error => {
                 console.error(error)
@@ -63,6 +77,27 @@ const Login = () => {
                 setLoading(false)
             })
     }
+
+    /*----------------------------
+     send forgot password link 
+     ----------------------------*/
+    const handleEmailBlur = (event) => {
+        const email = event.target.value
+        setUserEmail(email)
+    }
+
+    const handlePasswordReset = () => {
+        if (!userEmail) {
+            alert('please enter your email address')
+            return
+        }
+        passwordReset(userEmail)
+            .then(() => {
+                alert('Please check your email to reset password')
+            })
+            .catch(error => console.error(error))
+    }
+    /*-----------------------------------------------------*/
 
     return (
         <div className="hero mb-5">
@@ -77,7 +112,7 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" placeholder="email"
+                            <input onBlur={handleEmailBlur} type="email" placeholder="email"
                                 name='email'
                                 className="input input-bordered" required />
                         </div>
@@ -88,7 +123,7 @@ const Login = () => {
                             <input type="password"
                                 name='password' placeholder="password" className="input input-bordered" required />
                             <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                <button onClick={handlePasswordReset} className="label-text-alt link link-hover">Forgot password?</button>
                             </label>
                         </div>
 
@@ -100,7 +135,7 @@ const Login = () => {
                         </div>
                         {/* -------------------- */}
 
-                        <div className="form-control mt-6 mb-3">
+                        <div className="form-control mt-3 mb-3">
                             <button type='submit' className="btn btn-primary">Login</button>
                         </div>
                         <div>

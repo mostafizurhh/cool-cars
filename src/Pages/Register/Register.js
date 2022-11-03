@@ -6,7 +6,8 @@ import icon2 from '../../assets/social-icons/Google.png'
 import icon3 from '../../assets/social-icons/Github.png'
 import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
-import { toast, ToastContainer } from 'react-toastify';
+import toast from 'react-hot-toast';
+
 
 const Register = () => {
     const [error, setError] = useState('')
@@ -46,17 +47,12 @@ const Register = () => {
             .catch(error => console.error(error))
     }
 
-    const showToastMessage = () => {
-        toast.success('Please verify your email to register successfully!', {
-            position: toast.POSITION.TOP_CENTER
-        })
-    }
-
     const handleFormSubmit = (event) => {
         event.preventDefault()
         const form = event.target
 
         const name = form.name.value
+        const photoURL = form.photoURL.value
         const email = form.email.value
         const password = form.password.value
         const confirmPassword = form.confirmPassword.value
@@ -93,8 +89,9 @@ const Register = () => {
                 setError('')
                 form.reset()
                 handleEmailVerification()
-                handleUpdateUserInfo(name)
-                navigate(from, { replace: true })
+                handleUpdateUserInfo(name, photoURL)
+                // navigate(from, { replace: true })
+                toast.success('Please verify your email to register successfully!', { duration: 5000 })
             })
             .catch(error => {
                 console.error(error)
@@ -108,8 +105,11 @@ const Register = () => {
             .catch(error => console.error(error))
     }
 
-    const handleUpdateUserInfo = (name) => {
-        const info = { displayName: name }
+    const handleUpdateUserInfo = (name, photoURL) => {
+        const info = {
+            displayName: name,
+            photoURL: photoURL
+        }
         updateUserInfo(info)
             .then(() => { })
             .catch(error => console.error(error))
@@ -120,6 +120,7 @@ const Register = () => {
     }
     return (
         <div className="hero mb-5">
+
             <div className="hero-content flex-col md:flex-row-reverse">
                 <div className='md:ml-10'>
                     <img src={logo} alt="" />
@@ -127,13 +128,22 @@ const Register = () => {
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <form onSubmit={handleFormSubmit} className="card-body">
                         <h1 className="text-5xl font-bold text-center mb-3">Register Now</h1>
+
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
                             <input type="text" placeholder="your name"
                                 name='name'
-                                className="input input-bordered" required />
+                                className="input input-bordered" /* required */ />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Photo URL</span>
+                            </label>
+                            <input type="text" placeholder="provide your photo url"
+                                name='photoURL'
+                                className="input input-bordered" /* required */ />
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -156,7 +166,7 @@ const Register = () => {
                                 <span className="label-text">Confirm Password</span>
                             </label>
                             <input type="password"
-                                name='confirmPassword' placeholder="confirm password" className="input input-bordered" required />
+                                name='confirmPassword' placeholder="confirm password" className="input input-bordered" /* required */ />
                         </div>
 
                         {/*------------------- 
@@ -165,7 +175,6 @@ const Register = () => {
                         <div className='mt-3 text-red-700'>
                             {error}
                         </div>
-                        <ToastContainer autoClose={5000}></ToastContainer>
                         {/* -------------------- */}
 
                         <div className='form-control'>
@@ -176,7 +185,7 @@ const Register = () => {
                         </div>
 
                         <div className="form-control mt-3 mb-3">
-                            <button onClick={showToastMessage} type='submit' className="btn btn-primary" disabled={!terms}>Register</button>
+                            <button type='submit' className="btn btn-primary" disabled={!terms}>Register</button>
                         </div>
                         <div>
                             <p>Already have an account? Please <Link to='/login' className='text-blue-600'>Login</Link> here</p>

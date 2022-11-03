@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo.svg'
+import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
+import { FaUser } from 'react-icons/fa'
 
 const Header = () => {
+    const { user, logout } = useContext(AuthContext)
+
+    const handleLogout = () => {
+        logout()
+            .then(() => { })
+            .catch(error => console.error(error))
+    }
+
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to='/login'>Login</Link></li>
-        <li><Link to='/register'>Register</Link></li>
     </>
     return (
         <div className="navbar bg-base-100 h-24 mt-4 mb-5">
@@ -50,6 +58,43 @@ const Header = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                 </button>
                 <Link to='/appoinment' className="btn btn-xs">Appoinment</Link>
+
+                {/*---------------------
+                 display user info 
+                 ---------------------*/}
+                <div className='flex items-center justify-center ml-3'>
+                    {/*-------------------------------
+                    diplay user photo and show name as tooltip 
+                    ---------------------------------*/}
+                    <div className="avatar tooltip tooltip-bottom" data-tip={user?.displayName}>
+                        {
+                            user?.photoURL ?
+                                <div className="w-24 rounded-full">
+                                    <img src={user?.photoURL} alt="" />
+                                </div>
+                                :
+                                <FaUser></FaUser>
+                        }
+                    </div>
+                    {/*------------------------------------ toggle between login and logout link 
+                    --------------------------------------*/}
+                    <div>
+                        {
+                            user?.uid ?
+                                <>
+                                    <button onClick={handleLogout} className='ml-2'>Logout</button>
+                                </>
+                                :
+                                <>
+                                    <Link to='/login' className='ml-2'>Login</Link>
+                                    <Link to='/register' className='ml-2'>Register</Link>
+                                </>
+                        }
+                    </div>
+                    {/*----------------------------------*/}
+                </div>
+
+
             </div>
         </div>
     );

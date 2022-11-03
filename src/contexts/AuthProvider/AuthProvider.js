@@ -29,7 +29,7 @@ const AuthProvider = ({ children }) => {
 
     /* Email Verification */
     const emailVerification = () => {
-        return sendEmailVerification()
+        return sendEmailVerification(auth.currentUser)
     }
 
     /* Update User Info */
@@ -40,12 +40,11 @@ const AuthProvider = ({ children }) => {
     /* Forgot Password */
     const passwordReset = (email) => {
         setLoading(true)
-        sendPasswordResetEmail(auth, email)
+        return sendPasswordResetEmail(auth, email)
     }
 
     /* Logout */
     const logout = () => {
-        setLoading(true)
         return signOut()
     }
 
