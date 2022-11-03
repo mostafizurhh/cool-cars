@@ -5,14 +5,14 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_apiKey,
-    authDomain: process.env.REACT_APP_authDomain,
-    projectId: process.env.REACT_APP_projectId,
-    storageBucket: process.env.REACT_APP_storageBucket,
-    messagingSenderId: process.env.REACT_APP_messagingSenderId,
-    appId: process.env.REACT_APP_appId,
+    apiKey: "AIzaSyC9L7D_c2Wz8zjTOXP4AKrtV0CY3ypkdu0",
+    authDomain: "cool-cars-3f874.firebaseapp.com",
+    projectId: "cool-cars-3f874",
+    storageBucket: "cool-cars-3f874.appspot.com",
+    messagingSenderId: "766294663373",
+    appId: "1:766294663373:web:db06a41c258f4c502e0984"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export default app;
+export default app
