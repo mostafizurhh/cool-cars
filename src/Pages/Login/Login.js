@@ -6,6 +6,7 @@ import icon2 from '../../assets/social-icons/Google.png'
 import icon3 from '../../assets/social-icons/Github.png'
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const [error, setError] = useState('')
@@ -63,11 +64,17 @@ const Login = () => {
 
         loginWithEmail(email, password)
             .then(result => {
-                const user = result.error;
+                const user = result.user;
                 console.log(user)
                 setError('')
                 form.reset()
-                navigate(from, { replace: true })/* navigate user */
+                /* restrict user to navigate unless email verification */
+                if (user.emailVerified) {
+                    navigate(from, { replace: true })/* navigate user */
+                }
+                else {
+                    toast.error('Please verify your email first')
+                }
             })
             .catch(error => {
                 console.error(error)

@@ -45,13 +45,17 @@ const AuthProvider = ({ children }) => {
 
     /* Logout */
     const logout = () => {
-        return signOut()
+        setLoading(true)
+        return signOut(auth)
     }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             console.log(currentUser)
-            setUser(currentUser)
+            /* get verified user */
+            if (currentUser === null || currentUser.emailVerified) {
+                setUser(currentUser)
+            }
             setLoading(false)
         })
         return () => unsubscribe();

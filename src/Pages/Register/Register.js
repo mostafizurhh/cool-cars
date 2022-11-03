@@ -90,7 +90,7 @@ const Register = () => {
                 form.reset()
                 handleEmailVerification()
                 handleUpdateUserInfo(name, photoURL)
-                // navigate(from, { replace: true })
+                navigate(from, { replace: true })/* navigate user */
                 toast.success('Please verify your email to register successfully!', { duration: 5000 })
             })
             .catch(error => {
