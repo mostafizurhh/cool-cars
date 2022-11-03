@@ -69,7 +69,7 @@ const Header = () => {
                     <div className="avatar tooltip tooltip-bottom" data-tip={user?.displayName}>
                         {
                             user?.photoURL ?
-                                <div className="w-24 rounded-full">
+                                <div className="w-16 rounded-full">
                                     <img src={user?.photoURL} alt="" />
                                 </div>
                                 :
