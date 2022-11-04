@@ -19,7 +19,7 @@ const Orders = () => {
         const proceed = window.confirm('Are you sure, you want to cancel the order?')
         if (proceed) {
             fetch(`http://localhost:5000/orders/${id}`, {
-                method: 'delete'
+                method: 'DELETE'
             })
                 .then(res => res.json())
                 .then(data => {
@@ -32,6 +32,29 @@ const Orders = () => {
                 })
                 .catch(e => console.error(e))
         }
+    }
+
+    /* update a specific data in UI, Server and DB */
+    const handleStatusUpdate = id => {
+        fetch(`http://localhost:5000/orders/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({ status: 'Approved' })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if (data.modifiedCount > 0) {
+                    const remaining = orders.filter(odr => odr._id !== id);
+                    const approving = orders.find(odr => odr._id === id);
+                    approving.status = 'Approved';
+
+                    const newOrders = [approving, ...remaining];
+                    setOrders(newOrders);
+                }
+            })
     }
 
     return (
@@ -54,7 +77,10 @@ const Orders = () => {
                             orders.map(order => <OrderRow
                                 key={order._id}
                                 order={order}
-                                handleOrderDelete={handleOrderDelete}></OrderRow>)
+                                handleOrderDelete={handleOrderDelete}
+                                handleStatusUpdate={handleStatusUpdate}
+                            >
+                            </OrderRow>)
                         }
                     </tbody>
                 </table>

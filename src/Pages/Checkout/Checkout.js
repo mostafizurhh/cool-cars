@@ -37,7 +37,7 @@ const Checkout = () => {
 
         /* call order API from server to read order object from client side */
         fetch('http://localhost:5000/orders', {
-            method: 'post',
+            method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },

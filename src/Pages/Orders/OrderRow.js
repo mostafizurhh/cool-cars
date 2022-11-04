@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
-const OrderRow = ({ order, handleOrderDelete }) => {
+const OrderRow = ({ order, handleOrderDelete, handleStatusUpdate }) => {
     const { user } = useContext(AuthContext)
-    const { _id, customer, serviceName, price, email, phone, service } = order;
+    const { _id, customer, serviceName, price, email, phone, service, status } = order;
     const [orderService, setOrderService] = useState([])
 
     /* loading all orders data */
@@ -50,7 +50,9 @@ const OrderRow = ({ order, handleOrderDelete }) => {
             </td>
             <td>${price}</td>
             <th>
-                <button className="btn btn-ghost btn-xs">status</button>
+                <button onClick={() => handleStatusUpdate(_id)} className="btn btn-ghost btn-xs">
+                    {status ? status : 'Pending'}
+                </button>
             </th>
         </tr>
     );
