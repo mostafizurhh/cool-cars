@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import OrderRow from './OrderRow';
 
 const Orders = () => {
     const { user } = useContext(AuthContext)
-    const [orders, setOrders] = useState({})
+    const [orders, setOrders] = useState([])
 
     useEffect(() => {
         fetch(`http://localhost:5000/orders?email=${user.email}`)
@@ -12,10 +13,30 @@ const Orders = () => {
             .catch(e => console.error(e))
     }, [user?.email])
 
-
     return (
         <div>
-            <p> You have {orders.length} orders</p>
+            <p className='text-xl mb-4'> You have {orders.length} orders</p>
+
+            <div className="overflow-x-auto w-full">
+                <table className="table w-full">
+                    <thead>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Order</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            orders.map(order => <OrderRow
+                                key={order._id}
+                                order={order}></OrderRow>)
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

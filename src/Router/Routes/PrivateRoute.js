@@ -7,11 +7,9 @@ const PrivateRoute = ({ children }) => {
     const location = useLocation()
 
     if (loading) {
-        return <button type="btn-sm" class="bg-indigo-500 ..." disabled>
-            <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
-            </svg>
-            Processing...
-        </button>
+        return <div className='text-center'>
+            <progress className="progress w-56 mb-4"></progress>
+        </div>
     }
     if (!user) {
         return <Navigate to='/login'
