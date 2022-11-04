@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
-const OrderRow = ({ order }) => {
+const OrderRow = ({ order, handleOrderDelete }) => {
     const { user } = useContext(AuthContext)
     const { _id, customer, serviceName, price, email, phone, service } = order;
     const [orderService, setOrderService] = useState([])
@@ -14,24 +14,11 @@ const OrderRow = ({ order }) => {
             .catch(e => console.error(e))
     }, [service])
 
-    /* delete a specific data */
-    const handleOrderDelete = id => {
-        const proceed = window.confirm('Are you sure, you want to cancel the order?')
-        if (proceed) {
-            fetch(`http://localhost:5000/orders/${_id}`, {
-                method: 'delete'
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                })
-                .catch(e => console.error(e))
-        }
-    }
 
     return (
         <tr>
             <th>
+                {/* delete a specific data from UI, Server and DB */}
                 <label>
                     <button onClick={() => handleOrderDelete(_id)} className='btn btn-sm btn-outline btn-error'>x</button>
                 </label>
