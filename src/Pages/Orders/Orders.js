@@ -21,11 +21,11 @@ const Orders = () => {
                 <table className="table w-full">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Customer</th>
                             <th>Order</th>
                             <th>Price</th>
                             <th>Status</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

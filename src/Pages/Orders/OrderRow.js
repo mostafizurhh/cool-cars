@@ -14,6 +14,11 @@ const OrderRow = ({ order }) => {
     }, [service])
     return (
         <tr>
+            <th>
+                <label>
+                    <button className='btn btn-sm btn-outline btn-error'>x</button>
+                </label>
+            </th>
             <td>
                 <div className="flex items-center space-x-3">
                     <div className="avatar">
