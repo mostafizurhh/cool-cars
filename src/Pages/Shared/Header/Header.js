@@ -15,6 +15,7 @@ const Header = () => {
 
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
+        <li><Link to='/orders'>Orders</Link></li>
     </>
     return (
         <div className="navbar bg-base-100 h-24 mt-4 mb-5">
