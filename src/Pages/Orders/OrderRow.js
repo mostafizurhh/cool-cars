@@ -3,20 +3,37 @@ import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 const OrderRow = ({ order }) => {
     const { user } = useContext(AuthContext)
-    const { customer, serviceName, price, email, phone, service } = order;
+    const { _id, customer, serviceName, price, email, phone, service } = order;
     const [orderService, setOrderService] = useState([])
 
+    /* loading all orders data */
     useEffect(() => {
         fetch(`http://localhost:5000/services/${service}`)
             .then(res => res.json())
             .then(data => setOrderService(data))
             .catch(e => console.error(e))
     }, [service])
+
+    /* delete a specific data */
+    const handleOrderDelete = id => {
+        const proceed = window.confirm('Are you sure, you want to cancel the order?')
+        if (proceed) {
+            fetch(`http://localhost:5000/orders/${_id}`, {
+                method: 'delete'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                })
+                .catch(e => console.error(e))
+        }
+    }
+
     return (
         <tr>
             <th>
                 <label>
-                    <button className='btn btn-sm btn-outline btn-error'>x</button>
+                    <button onClick={() => handleOrderDelete(_id)} className='btn btn-sm btn-outline btn-error'>x</button>
                 </label>
             </th>
             <td>
@@ -51,5 +68,4 @@ const OrderRow = ({ order }) => {
         </tr>
     );
 };
-
 export default OrderRow;
