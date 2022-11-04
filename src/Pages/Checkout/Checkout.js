@@ -1,11 +1,19 @@
 import React, { useContext } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const Checkout = () => {
     const { user } = useContext(AuthContext)
     const service = useLoaderData()
-    // console.log(service)
+
+    /*--------------
+     navigate user 
+     ---------------*/
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || '/'
+    /*-------------------------------------------------*/
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -16,8 +24,7 @@ const Checkout = () => {
         const email = form.email.value
         const message = form.message.value
 
-        // console.log(name, phone, email, message)
-
+        /* create order object in order to send data to server */
         const order = {
             service: service._id,
             serviceName: service.title,
@@ -27,6 +34,25 @@ const Checkout = () => {
             email: email,
             message: message
         }
+
+        /* call order API from server to read order object from client side */
+        fetch('http://localhost:5000/orders', {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(order)
+        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data)
+                if (data.acknowledged) {
+                    toast.success('Order placed Successfully')
+                    form.reset()
+                    navigate(from, { replace: true })/* navigate user */
+                }
+            })
+            .catch(e => console.error(e))
     }
 
 
