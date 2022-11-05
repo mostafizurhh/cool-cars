@@ -71,7 +71,7 @@ const Login = () => {
                 }
                 console.log(currentUser);
 
-                /* get JWT token from server */
+                /* get or request JWT token from server */
                 fetch('http://localhost:5000/jwt', {
                     method: 'POST',
                     headers: {
