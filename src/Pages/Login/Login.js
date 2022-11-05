@@ -65,7 +65,28 @@ const Login = () => {
         loginWithEmail(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user)
+                // console.log(user)
+                const currentUser = {
+                    email: user.email
+                }
+                console.log(currentUser);
+
+                /* get JWT token from server */
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        /* local storage is easiest to store JWT token but not the best practice */
+                        localStorage.setItem('jwtToken', data.token);
+                    })
+                    .catch(e => console.error(e))
+
                 setError('')
                 form.reset()
                 /* restrict user to navigate unless email verification */
