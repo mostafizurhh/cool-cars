@@ -7,6 +7,7 @@ import icon3 from '../../assets/social-icons/Github.png'
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import { toast } from 'react-hot-toast';
+import { setJwtTokenApi } from '../../jwtTokenApi/jwtTokenApi';
 
 const Login = () => {
     const [error, setError] = useState('')
@@ -34,6 +35,14 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
+                setJwtTokenApi(user)
+                /* restrict user to navigate unless email verification */
+                if (user.emailVerified) {
+                    navigate(from, { replace: true })/* navigate user */
+                }
+                else {
+                    toast.error('Please verify your email first')
+                }
             })
             .catch(error => console.error(error))
     }
@@ -42,6 +51,14 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
+                setJwtTokenApi(user)
+                /* restrict user to navigate unless email verification */
+                if (user.emailVerified) {
+                    navigate(from, { replace: true })/* navigate user */
+                }
+                else {
+                    toast.error('Please verify your email first')
+                }
             })
             .catch(error => console.error(error))
     }
@@ -50,6 +67,14 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
+                setJwtTokenApi(user)
+                /* restrict user to navigate unless email verification */
+                if (user.emailVerified) {
+                    navigate(from, { replace: true })/* navigate user */
+                }
+                else {
+                    toast.error('Please verify your email first')
+                }
             })
             .catch(error => console.error(error))
     }
@@ -66,26 +91,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 // console.log(user)
-                const currentUser = {
-                    email: user.email
-                }
-                console.log(currentUser);
-
-                /* get or request JWT token from server */
-                fetch('https://cool-car-server.vercel.app/jwt', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(currentUser)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data)
-                        /* local storage is easiest to store JWT token but not the best practice */
-                        localStorage.setItem('jwtToken', data.token);
-                    })
-                    .catch(e => console.error(e))
+                setJwtTokenApi(user)
                 /* restrict user to navigate unless email verification */
                 if (user.emailVerified) {
                     navigate(from, { replace: true })/* navigate user */

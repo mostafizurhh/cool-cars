@@ -7,6 +7,7 @@ import icon3 from '../../assets/social-icons/Github.png'
 import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
+import { setJwtTokenApi } from '../../jwtTokenApi/jwtTokenApi';
 
 
 const Register = () => {
@@ -27,6 +28,10 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
+                handleEmailVerification()
+                setJwtTokenApi(user)
+                toast.success('Please verify your email to register successfully!', { duration: 5000 })
+                navigate(from, { replace: true })/* navigate user */
             })
             .catch(error => console.error(error))
     }
@@ -35,6 +40,10 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
+                handleEmailVerification()
+                setJwtTokenApi(user)
+                toast.success('Please verify your email to register successfully!', { duration: 5000 })
+                navigate(from, { replace: true })/* navigate user */
             })
             .catch(error => console.error(error))
     }
@@ -43,6 +52,10 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user)
+                handleEmailVerification()
+                setJwtTokenApi(user)
+                toast.success('Please verify your email to register successfully!', { duration: 5000 })
+                navigate(from, { replace: true })/* navigate user */
             })
             .catch(error => console.error(error))
     }
