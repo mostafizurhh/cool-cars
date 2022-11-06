@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import logo from '../../assets/images/login/login.svg'
 import icon1 from '../../assets/social-icons/Facebook.png'
