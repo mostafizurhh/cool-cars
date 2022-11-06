@@ -84,16 +84,15 @@ const Login = () => {
                         console.log(data)
                         /* local storage is easiest to store JWT token but not the best practice */
                         localStorage.setItem('jwtToken', data.token);
-                        /* restrict user to navigate unless email verification */
-                        if (user.emailVerified) {
-                            navigate(from, { replace: true })/* navigate user */
-                        }
-                        else {
-                            toast.error('Please verify your email first')
-                        }
                     })
                     .catch(e => console.error(e))
-
+                /* restrict user to navigate unless email verification */
+                if (user.emailVerified) {
+                    navigate(from, { replace: true })/* navigate user */
+                }
+                else {
+                    toast.error('Please verify your email first')
+                }
                 setError('')
                 form.reset()
             })
