@@ -36,7 +36,7 @@ const Checkout = () => {
         }
 
         /* call order API from server to read order object from client side */
-        fetch('http://localhost:5000/orders', {
+        fetch('https://cool-car-server.vercel.app/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

@@ -8,7 +8,7 @@ const OrderRow = ({ order, handleOrderDelete, handleStatusUpdate }) => {
 
     /* loading all orders data */
     useEffect(() => {
-        fetch(`http://localhost:5000/services/${service}`)
+        fetch(`https://cool-car-server.vercel.app/services/${service}`)
             .then(res => res.json())
             .then(data => setOrderService(data))
             .catch(e => console.error(e))

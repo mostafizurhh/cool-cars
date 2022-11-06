@@ -72,7 +72,7 @@ const Login = () => {
                 console.log(currentUser);
 
                 /* get or request JWT token from server */
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://cool-car-server.vercel.app/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

@@ -8,7 +8,7 @@ const Orders = () => {
     const [orders, setOrders] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/orders?email=${user.email}`, {
+        fetch(`https://cool-car-server.vercel.app/orders?email=${user.email}`, {
             /* send JWT token to server for verification */
             headers: {
                 authorization: `Bearer ${localStorage.getItem('jwtToken')}`
@@ -28,7 +28,7 @@ const Orders = () => {
     const handleOrderDelete = id => {
         const proceed = window.confirm('Are you sure, you want to cancel the order?')
         if (proceed) {
-            fetch(`http://localhost:5000/orders/${id}`, {
+            fetch(`https://cool-car-server.vercel.app/orders/${id}`, {
                 method: 'DELETE',
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('jwtToken')}`
@@ -49,7 +49,7 @@ const Orders = () => {
 
     /* update a specific data in UI, Server and DB */
     const handleStatusUpdate = id => {
-        fetch(`http://localhost:5000/orders/${id}`, {
+        fetch(`https://cool-car-server.vercel.app/orders/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
